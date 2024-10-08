@@ -1,4 +1,4 @@
-# Bike Sharing Dashboar
+# Bike Sharing Dashboard
 
 ## Setup Environment - Terminal
 pipenv install  
