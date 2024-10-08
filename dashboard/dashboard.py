@@ -4,8 +4,8 @@ import seaborn as sns
 import streamlit as st
 import numpy as np
 
-days_df = pd.read_csv("day.csv")
-hours_df = pd.read_csv("hour.csv")
+days_df = pd.read_csv("dashboard/day.csv")
+hours_df = pd.read_csv("dashboard/hour.csv")
 
 st.title("🚲 Bike Sharing 🚲")
 st.write("Lets Sharing a Bike!")
