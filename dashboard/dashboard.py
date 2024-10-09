@@ -21,7 +21,7 @@ def create_sum_registered_user_df(df):
 def main():
     # Load the dataset
 
-    st.sub header("Dashboard: Bicycle Usage Analysis (2012)")
+    st.header("Dashboard: Bicycle Usage Analysis (2012)")
 
     # Filter data for the last two years (assuming yr column: 0=2011, 1=2012)
     day_df_filtered = days_df[days_df['yr'] == 1]  # 1 corresponds to 2012
