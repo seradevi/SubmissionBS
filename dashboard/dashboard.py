@@ -24,7 +24,7 @@ def seasonal_bike_sharing():
     season_labels = {1: 'Spring', 2: 'Summer', 3: 'Fall', 4: 'Winter'}
     seasonal_usage['season'] = seasonal_usage['season'].map(season_labels)
 
-    st.header("Seasonal Bike Sharing (2012)")
+    st.subheader("Seasonal Bike Sharing (2012)")
     sns.set(style="whitegrid")
     plt.figure(figsize=(10, 6))
     sns.barplot(x='season', y='value', hue='variable', data=pd.melt(seasonal_usage, ['season']))
@@ -37,7 +37,7 @@ def seasonal_bike_sharing():
     st.pyplot(plt)
     
 def hourly_average_bike_sharing():
-    st.header("Hourly Average Bike Sharing Per Day of the Week")
+    st.subheader("Hourly Average Bike Sharing Per Day of the Week")
 
     hourly_avg_users = hours_df.groupby(['hr', 'weekday'])['cnt'].mean().unstack()
     plt.figure(figsize=(12, 6))
@@ -63,7 +63,7 @@ def plot_weather_impact():
 
     col1, col2 = st.columns(2)
     with col1:
-        st.header('Weather Impact on Total Bike Sharing (Working Days)')
+        st.subheader('Weather Impact on Total Bike Sharing (Working Days)')
         plt.figure(figsize=(12, 6))
         sns.scatterplot(x='temp', y='cnt', hue='hum', size='hum', sizes=(20, 200), data=working_day_data, palette="coolwarm")
         plt.title('Weather Impact on Total Bicycle Usage (Working Days)', fontsize=14)
@@ -73,7 +73,7 @@ def plot_weather_impact():
         st.pyplot(plt)
 
     with col2:
-        st.header('Weather Impact on Total Bike Sharing (Weekends)')
+        st.subheader('Weather Impact on Total Bike Sharing (Weekends)')
         plt.figure(figsize=(12, 6))
         sns.scatterplot(x='temp', y='cnt', hue='hum', size='hum', sizes=(20, 200), data=weekend_data, palette="coolwarm")
         plt.title('Weather Impact on Total Bicycle Usage (Weekends)', fontsize=14)
@@ -88,7 +88,7 @@ def plot_weekday_weekend_usage():
     avg_bike_usage_by_hour_pivot = avg_bike_usage_by_hour.pivot(index='hr', columns='is_weekend', values='cnt')
     avg_bike_usage_by_hour_pivot.columns = ['Weekday', 'Weekend']
     
-    st.header("Average Bike Usage per Hour: Weekdays vs Weekends")
+    st.subheader("Average Bike Usage per Hour: Weekdays vs Weekends")
     plt.figure(figsize=(10, 6))
     plt.plot(avg_bike_usage_by_hour_pivot.index, avg_bike_usage_by_hour_pivot['Weekday'], label='Weekday', marker='o')
     plt.plot(avg_bike_usage_by_hour_pivot.index, avg_bike_usage_by_hour_pivot['Weekend'], label='Weekend', marker='o', linestyle='--')
@@ -106,7 +106,7 @@ def plot_holiday_usage():
     holiday_vs_non_holiday = recent_data.groupby('holiday')[['casual', 'registered']].mean().reset_index()
     holiday_vs_non_holiday.columns = ['Holiday', 'Avg Casual Users', 'Avg Registered Users']
     
-    st.header("Average Bike Sharing on Holidays vs Non-Holidays")
+    st.subheader("Average Bike Sharing on Holidays vs Non-Holidays")
     plt.figure(figsize=(8, 6))
     bar_width = 0.35
     index = [0, 1]  
