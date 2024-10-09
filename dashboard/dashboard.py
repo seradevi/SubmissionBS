@@ -60,10 +60,12 @@ def plot_weather_impact():
     weekend_data = last_year_data[last_year_data['day_type'] == 'Weekend']
     working_corr_temp = working_day_data[['cnt', 'temp', 'hum']].corr().loc['cnt']
     weekend_corr_temp = weekend_data[['cnt', 'temp', 'hum']].corr().loc['cnt']
-
+    
+    st.subheader('Weather Impact on Total Bike Sharing')
+    
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader('Weather Impact on Total Bike Sharing (Working Days)')
+        st.write('Working Days')
         plt.figure(figsize=(12, 6))
         sns.scatterplot(x='temp', y='cnt', hue='hum', size='hum', sizes=(20, 200), data=working_day_data, palette="coolwarm")
         plt.title('Weather Impact on Total Bicycle Usage (Working Days)', fontsize=14)
@@ -73,7 +75,7 @@ def plot_weather_impact():
         st.pyplot(plt)
 
     with col2:
-        st.subheader('Weather Impact on Total Bike Sharing (Weekends)')
+        st.write('Weekends')
         plt.figure(figsize=(12, 6))
         sns.scatterplot(x='temp', y='cnt', hue='hum', size='hum', sizes=(20, 200), data=weekend_data, palette="coolwarm")
         plt.title('Weather Impact on Total Bicycle Usage (Weekends)', fontsize=14)
