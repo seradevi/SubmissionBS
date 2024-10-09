@@ -94,7 +94,7 @@ with col2:
     chart_registered = days_df["registered"]
     st.line_chart(chart_registered)
 
-if __name__ == 'hourly_average_bike_sharing':
+if __name__ == '__hourly_average_bike_sharing__':
     hourly_average_bike_sharing()
 
 st.subheader('Comparison of Casual and Registered Users')
@@ -106,7 +106,7 @@ ax.set_ylabel('Total Users')
 ax.legend()
 st.pyplot(fig)
 
-if __name__ == 'seasonal_bike_sharing':
+if __name__ == '__seasonal_bike_sharing__':
     seasonal_bike_sharing()
 
 st.subheader('Effect of Weather on Total Bike Sharing Users')
