@@ -19,40 +19,25 @@ def create_sum_registered_user_df(df):
     return sum_registered_user_df
 
 def main():
-    # Load the dataset
-
-    st.header("Dashboard: Bicycle Usage Analysis (2012)")
-
-    # Filter data for the last two years (assuming yr column: 0=2011, 1=2012)
-    day_df_filtered = days_df[days_df['yr'] == 1]  # 1 corresponds to 2012
-
-    # Group by season and calculate the average count of casual and registered users per season
+    day_df_filtered = days_df[days_df['yr'] == 1]
     seasonal_usage = day_df_filtered.groupby('season')[['casual', 'registered']].mean().reset_index()
-
-    # Define season labels for better understanding (assuming 1=Spring, 2=Summer, 3=Fall, 4=Winter)
     season_labels = {1: 'Spring', 2: 'Summer', 3: 'Fall', 4: 'Winter'}
     seasonal_usage['season'] = seasonal_usage['season'].map(season_labels)
 
-    # Visualisasi menggunakan Seaborn
+    st.header("Seasonal Bike Usage (2012)")
+    
     sns.set(style="whitegrid")
     plt.figure(figsize=(10, 6))
     
-    # Create a bar plot for casual and registered users by season
     sns.barplot(x='season', y='value', hue='variable', data=pd.melt(seasonal_usage, ['season']))
-
-    # Tambahkan label dan judul
+    
     plt.title('Average Bicycle Usage by Casual and Registered Users Across Seasons (2012)', fontsize=14)
     plt.xlabel('Season', fontsize=12)
     plt.ylabel('Average Number of Users', fontsize=12)
     plt.legend(title='User Type', loc='upper right')
     plt.tight_layout()
-
-    # Tampilkan plot di Streamlit
+    
     st.pyplot(plt)
-
-# Panggil fungsi main untuk menjalankan dashboard
-if __name__ == '__main__':
-    main()
 
 datetime_columns = ["dteday"]
 days_df.sort_values(by="dteday", inplace=True)
@@ -95,6 +80,9 @@ with col2:
 
     chart_registered = days_df["registered"]
     st.line_chart(chart_registered)
+
+if __name__ == '__main__':
+    main()
 
 st.subheader('Comparison of Casual and Registered Users')
 fig, ax = plt.subplots()
