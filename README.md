@@ -6,4 +6,4 @@ pipenv shell
 pip install -r requirements.txt  
 
 ## Run steamlit app
-streamlit run dashboard.py
+streamlit run dashboard/dashboard.py
