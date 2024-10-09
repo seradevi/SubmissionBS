@@ -18,25 +18,38 @@ def create_sum_registered_user_df(df):
     sum_registered_user_df = df.groupby("dteday").registered.sum().sort_values(ascending=False).reset_index()
     return sum_registered_user_df
 
-def main():
+def seasonal_bike_sharing():
     day_df_filtered = days_df[days_df['yr'] == 1]
     seasonal_usage = day_df_filtered.groupby('season')[['casual', 'registered']].mean().reset_index()
     season_labels = {1: 'Spring', 2: 'Summer', 3: 'Fall', 4: 'Winter'}
     seasonal_usage['season'] = seasonal_usage['season'].map(season_labels)
 
-    st.header("Seasonal Bike Usage (2012)")
-    
+    st.header("Seasonal Bike Sharing (2012)")
     sns.set(style="whitegrid")
     plt.figure(figsize=(10, 6))
-    
     sns.barplot(x='season', y='value', hue='variable', data=pd.melt(seasonal_usage, ['season']))
-    
+
     plt.title('Average Bicycle Usage by Casual and Registered Users Across Seasons (2012)', fontsize=14)
     plt.xlabel('Season', fontsize=12)
     plt.ylabel('Average Number of Users', fontsize=12)
     plt.legend(title='User Type', loc='upper right')
     plt.tight_layout()
+    st.pyplot(plt)
     
+def hourly_average_bike_sharing():
+    st.header("Hourly Average Bike Sharing Per Day of the Week")
+
+    hourly_avg_users = hours_df.groupby(['hr', 'weekday'])['cnt'].mean().unstack()
+    plt.figure(figsize=(12, 6))
+    for weekday in range(7):
+        plt.plot(hourly_avg_users.index, hourly_avg_users[weekday], label=f'Weekday {weekday}')
+
+    plt.xlabel('Hour', fontsize=12)
+    plt.ylabel('Average Number of Users', fontsize=12)
+    plt.title('Average Number of Users per Hour in a Week', fontsize=14)
+    plt.legend(title='Day of the Week', loc='upper right')
+    plt.grid(True)
+    plt.tight_layout()
     st.pyplot(plt)
 
 datetime_columns = ["dteday"]
@@ -81,8 +94,8 @@ with col2:
     chart_registered = days_df["registered"]
     st.line_chart(chart_registered)
 
-if __name__ == '__main__':
-    main()
+if __name__ == 'hourly_average_bike_sharing':
+    hourly_average_bike_sharing()
 
 st.subheader('Comparison of Casual and Registered Users')
 fig, ax = plt.subplots()
@@ -92,6 +105,9 @@ ax.set_xlabel('Days')
 ax.set_ylabel('Total Users')
 ax.legend()
 st.pyplot(fig)
+
+if __name__ == 'seasonal_bike_sharing':
+    seasonal_bike_sharing()
 
 st.subheader('Effect of Weather on Total Bike Sharing Users')
 fig, ax = plt.subplots()
